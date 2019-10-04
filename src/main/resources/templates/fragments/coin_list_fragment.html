@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<div th:fragment="coinListFragment" class="container" align="center">
+    <table class="table"  width="500px">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Token</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+            <th scope="col">Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:if="${coinList.empty}" >
+            <td colspan="4" align="center"> No Coins Available</td>
+        </tr>
+                
+        <tr th:each="coin : ${coinList}">
+            <td><span th:text="${coin.id}"> Id </span></td>
+            <td><span th:text="${coin.name}"> Name </span></td>
+            <td><span th:text="${coin.token}"> Token </span></td>
+            <td><span th:text="${coin.amount}"> Amount </span></td>
+            <td><span th:text="${coin.price}"> Price </span></td>
+            <td><span th:with="var=${coin.amount * coin.price}" th:text="${var}"> Total </span></td>
+
+            <td>
+
+                <form th:action="@{delete}" method="post">
+                    <input type="hidden" name="id" th:value="${coin.id}"/>
+                    <button type="submit" value="Delete" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</html>
