@@ -6,9 +6,23 @@
 </head>
 <body>
 
-<div th:insert="fragments/header_fragment.html :: headerFragment"/>
+<div  th:insert="fragments/header_fragment.html :: headerFragment"/>
 
+<div class="section">
+<div class="container">
+<h1 align="center">
+    <!--<span th:if="${userName != 'Guess'}" th:text="${'Hello ' + userName}">someValue</span>-->
+    <!--<span th:unless="${userName != 'Guess'}" th:text="Welcome">someValue</span>-->
+    <span th:text="WELCOME">WELCOME</span>
 
+</h1>
+
+    <div class="home-text">
+        <p>The cryptocurrency portfolio is a useful tool that allows you to easily track in real time the performance of all your cryptocurrencies in one place.</p>
+    </div>
+
+</div>
+</div>
 
 </body>
 </html>

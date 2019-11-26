@@ -1,0 +1,35 @@
+header {
+    background-image: linear-gradient(to right, #6e2108, #753b28);
+}
+
+header h1 {
+    margin-top: 0;
+    color: white;
+    font-size: 2em;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: white;
+    padding-bottom: 50px ;
+}
+
+.header-top a {
+    color: inherit;
+    text-transform: uppercase;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav > a{
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+
+}

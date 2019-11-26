@@ -1,4 +1,4 @@
-package com.damian.cryptoportfolio.logic.models;
+package com.damian.cryptoportfolio.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

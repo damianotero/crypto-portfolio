@@ -17,7 +17,7 @@ public class CoinRowMapper implements RowMapper<Coin> {
         coin.setName(rs.getString("c_name"));
         coin.setToken(rs.getString("c_token"));
         coin.setAmount(rs.getDouble("c_amount"));
-
+        coin.setUserId(rs.getInt("c_u_id"));
         return coin;
     }
 }

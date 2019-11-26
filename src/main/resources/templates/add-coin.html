@@ -8,20 +8,35 @@
 <div  th:insert="fragments/header_fragment.html :: headerFragment"/>
 
 
-<div class="container">
+<div class="content">
     <form th:action="@{/coins/add-coin}" th:object="${coin}" method="post">
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" th:field="*{name}" aria-describedby="emailHelp"
-                   placeholder="Enter Name of the Coin">
+            <label>Coin</label>
+
+        <select th:field="*{token}" class="form-control">
+            <option th:value="BTC">Bitcoin</option>
+            <option th:value="ETH">Etherum</option>
+            <option th:value="XRP">Ripple</option>
+            <option th:value="BCH">Bitcoin Cash</option>
+            <option th:value="USDT">Tether</option>
+            <option th:value="LTC">Litecoin</option>
+            <option th:value="EOS">EOS</option>
+            <option th:value="BSV">Bitcoin SV</option>
+            <option th:value="XLM">Stellar</option>
+            <option th:value="TRX">TRON</option>
+            <option th:value="XMR">Monero</option>
+
+        </select>
+
+
         </div>
-        <div class="form-group">
-            <label>Token</label>
-            <input type="text" th:field="*{token}" class="form-control" placeholder="Token">
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label>Token</label>-->
+            <!--<input type="text" th:field="*{token}" class="form-control" placeholder="Token">-->
+        <!--</div>-->
 
         <div class="form-group">
-            <label>Ammount</label>
+            <label>Amount</label>
             <input type="number" th:field="*{amount}" class="form-control" placeholder="Amount">
         </div>
 

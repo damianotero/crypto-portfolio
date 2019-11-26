@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="fragments/head_fragment.html :: head_fragment"/>
+    <title>Add Coins</title>
+</head>
+<body>
+<div th:insert="fragments/header_fragment.html :: headerFragment"/>
+
+
+<div class="section">
+    <div class="container">
+
+        <h2 align="center">LOGIN TO CONTINUE</h2>
+    </div>
+
+    <div class="container">
+        <form th:action="@{/users/login}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" th:field="*{name}" aria-describedby="emailHelp"
+                       placeholder="User Name">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" value="Submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="register">
+                    <a href="/users/addUser" class="btn btn-secondary">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>
