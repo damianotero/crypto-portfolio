@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" taglib prefix="sec" uri="http://www.springframework.org/security/tags" xmlns:th="http://www.thymeleaf.org">
 
 <header class="section" th:fragment="headerFragment">
     <br/>
@@ -10,8 +10,13 @@
                 <h1>Cryptocurrency Portfolio</h1>
 
                 <a>
-
-                    <a th:href="@{/logout}" th:text="logout">logout</a>
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Logout</a>
+                    </div>
+                    <div sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}">Login</a>
+                    </div>
+                    <!--<a th:href="@{/logout}" th:text="logout">logout</a>-->
 
                 </a>
             </div>
@@ -20,7 +25,7 @@
                 <a th:href="@{/}">Home</a>
                 <a th:href="@{/coins/list}">Coin List</a>
                 <a th:href="@{/coins/add-coin}">Add coin</a>
-                <a th:href="@{/users/addUser}" th:text="REGISTER">REGISTER</a>
+                <!--<a th:href="@{/users/addUser}" th:text="REGISTER">REGISTER</a>-->
                 <a th:href="@{/about}">About</a>
 
 

@@ -32,6 +32,13 @@ dependencies {
 	compile group: 'org.springframework.security', name: 'spring-security-web'
 	compile group: 'org.springframework.security', name: 'spring-security-config'
 
-	
+
+	compile group: 'org.springframework.security', name: 'spring-security-taglibs'
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+
+
+
+
 
 }
