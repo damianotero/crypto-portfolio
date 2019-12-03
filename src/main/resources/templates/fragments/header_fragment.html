@@ -11,9 +11,8 @@
 
                 <a>
 
-                    <a th:href="@{/logout/}" th:text="logout">logout</a>
-                    <!--<a th:href="@{/logout/}" th:if="${userName != 'Guess'}" th:text="Logout">someValue</a>-->
-                    <!--<a th:href="@{/login/}" th:unless="${userName != 'Guess'}" th:text="Login">someValue</a>-->
+                    <a th:href="@{/logout}" th:text="logout">logout</a>
+
                 </a>
             </div>
 
@@ -21,7 +20,7 @@
                 <a th:href="@{/}">Home</a>
                 <a th:href="@{/coins/list}">Coin List</a>
                 <a th:href="@{/coins/add-coin}">Add coin</a>
-                <a th:href="@{/users/addUser/}" th:text="REGISTER">REGISTER</a>
+                <a th:href="@{/users/addUser}" th:text="REGISTER">REGISTER</a>
                 <a th:href="@{/about}">About</a>
 
 

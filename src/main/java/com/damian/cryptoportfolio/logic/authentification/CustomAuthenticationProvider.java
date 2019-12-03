@@ -28,7 +28,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         List<User> userList = userService.getUsers();
         for (User user : userList) {
-            if (user.getName().equals(username) && user.getPassword().equals(password)) {
+            if (user.getName().equalsIgnoreCase(username) && user.getPassword().equals(password)) {
                 return new UsernamePasswordAuthenticationToken
                         (username, password, Collections.emptyList());
             }
