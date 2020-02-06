@@ -32,7 +32,7 @@ dependencies {
 	compile group: 'org.springframework.security', name: 'spring-security-web'
 	compile group: 'org.springframework.security', name: 'spring-security-config'
 
-
+	testCompile group: 'org.mockito', name: 'mockito-all'
 	compile group: 'org.springframework.security', name: 'spring-security-taglibs'
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
 
