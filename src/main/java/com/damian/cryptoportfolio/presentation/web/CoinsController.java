@@ -5,6 +5,7 @@ import com.damian.cryptoportfolio.logic.models.Coin;
 import com.damian.cryptoportfolio.logic.models.User;
 import com.damian.cryptoportfolio.logic.services.CoinService;
 import com.damian.cryptoportfolio.logic.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/coins")
 public class CoinsController {
@@ -32,51 +34,44 @@ public class CoinsController {
 
     @GetMapping("/list")
     public String listCoins(Model model) {
+        log.info("listCoins(): Method from controller called");
         User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
 
-//        //  GETTING USER LOGGED FOR HEADER  //
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null){
-//            model.addAttribute("user",true);
-//        }else {
-//            model.addAttribute("user",false);
-//        }
-//                 ///////////////
         if (user != null) {
+            log.info("listCoins(): User: " + user.getName() + " authenticated");
             List<Coin> coinList = coinService.getCoinsByUser(user);
             model.addAttribute("userName", user.getName());
             model.addAttribute("coinList", coinList);
-
+            log.info("listCoins(): Retrieving List of coins");
             return "coin_list";
         } else {
+            log.info("listCoins(): Authentication failed, redirecting");
             return "redirect:/users/login";
         }
     }
 
     @GetMapping("/add-coin")
     public String addCoinForm(Model model) {
-//        //  GETTING USER LOGGED FOR HEADER  //
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null){
-//            model.addAttribute("user",true);
-//        }else {
-//            model.addAttribute("user",false);
-//        }
-//        ///////////////
+        log.info("addCoinForm(): Method from controller called");
+
         User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
         if (user != null) {
+            log.info("addCoinForm(): User: " + user.getName() + " authenticated, redirecting to add-coin");
             model.addAttribute("coin", new Coin());
             return "add-coin";
         } else {
+            log.info("addCoinForm(): Authentication failed, redirecting");
             return "redirect:/users/login";
         }
     }
 
     @PostMapping("/add-coin")
     public String addCoinSubmit(@ModelAttribute Coin coin, BindingResult errors, Model model) {
+        log.info("addCoinSubmit(): Post Method controller called.");
         User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
         coin.setUserId(user.getId());
         coinService.addCoin(coin);
+        log.info("addCoinSubmit(): Adding coin: " + coin.getName() + " to the User: " + user.getName());
         model.addAttribute("coinList", coinService.getCoinsByUser(user));
         model.addAttribute("userName", user.getName());
 
@@ -86,8 +81,10 @@ public class CoinsController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteCoin(@RequestParam String id, Model model) {
+        log.info("deleteCoin(): Method from controller called");
         User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
         coinService.deleteCoin(Integer.valueOf(id));
+        log.info("deleteCoin(): Deleting coin with id:" + id + " from User: " + user.getName());
         model.addAttribute("coinList", coinService.getCoinsByUser(user));
         return "coin_list";
     }

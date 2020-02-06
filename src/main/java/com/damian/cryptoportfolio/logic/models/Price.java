@@ -1,6 +1,6 @@
 package com.damian.cryptoportfolio.logic.models;
 
-import com.damian.cryptoportfolio.data.CoinChange;
+import com.damian.cryptoportfolio.data.jsonproperties.CoinChange;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Price {

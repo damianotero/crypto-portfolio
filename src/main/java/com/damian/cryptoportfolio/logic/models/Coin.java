@@ -15,7 +15,7 @@ public class Coin {
 
     private HashMap<String, String> tokens =new HashMap<>();
 
-    public HashMap<String,String> setMap() {
+    public HashMap<String,String> setMap() { //TODO change setMap for a Map with a getter
         tokens.put("BTC", "Bitcoin");
         tokens.put("ETH", "Etherum");
         tokens.put("XRP", "Ripple");
@@ -54,16 +54,6 @@ public class Coin {
         return name;
     }
 
-//    public String setNameToken() {
-//        this.name = tokens.get(token);
-//    }
-
-//    public static void main(String[] args) {
-//        Coin coin = new Coin();
-//        coin.setToken("BTC");
-//        coin.setNameToken();
-//        System.out.println(tokens.get(coin.token));
-//    }
 
     public void setName(String name) {
         this.name = name;

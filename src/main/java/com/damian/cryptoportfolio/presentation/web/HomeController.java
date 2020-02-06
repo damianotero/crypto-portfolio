@@ -1,5 +1,6 @@
 package com.damian.cryptoportfolio.presentation.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -11,25 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 @Controller
 public class HomeController {
-
-//    @Autowired
-//    private CoinService coinService;
-
-//    @Autowired
-//    private UserController userController;
-//
-//    @Autowired
-//    private UserService userService;
-//
-//    @Autowired
-//    private UserAuthentication userAuthentication;
 
 
     @GetMapping("/")
     public String home(){
-
         return "home";
     }
 
@@ -55,10 +44,13 @@ public class HomeController {
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        log.info("logoutPage(): Method called");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
+            log.info("User Login Out");
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+
         return "/logout";
     }
 
