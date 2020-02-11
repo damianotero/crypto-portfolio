@@ -2,13 +2,14 @@ plugins {
 	id 'org.springframework.boot' version '2.1.9.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id "war"
+	id "io.freefair.lombok" version "4.1.6"
 }
 
 group = 'com.damian'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-apply plugin: 'war'
 
 configurations {
 	compileOnly {
@@ -24,18 +25,16 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
 	compile group: 'org.springframework.security', name: 'spring-security-web'
 	compile group: 'org.springframework.security', name: 'spring-security-config'
-
-	testCompile group: 'org.mockito', name: 'mockito-all'
 	compile group: 'org.springframework.security', name: 'spring-security-taglibs'
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
 
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
 
 
 
