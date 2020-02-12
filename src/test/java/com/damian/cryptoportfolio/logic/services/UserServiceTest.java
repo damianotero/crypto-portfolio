@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,17 +40,21 @@ public class UserServiceTest {
         userService.addUser(user);
         verify(userRepository).addUser(user);
 
+
     }
 
     @Test
     public void getUsers() {
         List<User> userList = new ArrayList<>();
-        userList.add(new User());
-        userList.add(new User());
-        userList.add(new User());
+        User user = new User();
+        user.setName("test name");
+        userList.add(user);
+
         when(userRepository.getUsers()).thenReturn(userList);
 
-
+        userList= userRepository.getUsers();
+        assertThat(userList.get(0).getName()).isEqualTo("test name");
+        
     }
 
     @Test
@@ -58,9 +63,14 @@ public class UserServiceTest {
         user.setName("test name");
         user.setId(23423423);
         user.setPassword("3245234");
-
         userService.validateUser(user);
         verify(userRepository).validateUser(user);
+
+        User user2 = new User();
+        user2.setName("test name");
+        user2.setId(23423423);
+        user2.setPassword("3245234");
+        assertThat(userService.validateUser(user2)).isEqualTo(true);
     }
 
     @Test
