@@ -67,7 +67,7 @@ public class CoinRepository {
         HashMap<String, String> tokensMap = coin.setMap();
         coin.setName(tokensMap.get(coin.getToken()));
         log.info("addCoin(): Setting name of the coin from map of coin names and tokens.");
-        User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
         log.info("addCoin(): Getting user authenticated.  -> getUserByName(userAuthentication.getUserAuthenticated()");
         List<Coin> coinList = getCoinsByUser(user);
         log.info("addCoin(): Getting coin list by user and check if already exists");

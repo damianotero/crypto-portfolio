@@ -18,7 +18,7 @@ public class UserRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
 
-    public void addUser(User user) {
+    public User addUser(User user) { //todo change primary key to name instead of id in users
         log.info("addUser(): Method called");
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("name", user.getName())
@@ -26,6 +26,7 @@ public class UserRepository {
         jdbcTemplate.update("INSERT INTO users (u_name, u_password) VALUES ( :name , :password);", namedParameters);
         log.info("User: " + user.getName() + ", added.");
 
+        return user;
     }
 
     public List<User> getUsers() {
@@ -35,33 +36,28 @@ public class UserRepository {
         return listUsers;
     }
 
-    public boolean validateUser(User requestedUser) {
+    public boolean userExists(User requestedUser) {//todo change the for for a query and try catch exception
         log.info("validateUser(): Method called");
         List<User> listUsers = jdbcTemplate.query("SELECT * FROM users", new UserRowMapper());
         log.info("validateUser(" + requestedUser + "): Requesting list of all users");
         for (User user : listUsers) {
             if (user.equals(requestedUser)) {
-                log.info("validateUser(" + requestedUser +"): User founded");
+                log.info("validateUser(" + requestedUser + "): User founded");
                 return true;
             }
         }
-        log.info("validateUser(" + requestedUser +"): Doesn't exist");
+        log.info("validateUser(" + requestedUser + "): Doesn't exist");
         return false;
     }
 
-    public User getUserByName(String name) {
+    public User findUserByName(String name) {
         log.info("getUserByName(): Method called");
-        List<User> listUsers = jdbcTemplate.query("SELECT * FROM users", new UserRowMapper());
-        log.info("getUserByName("+name+"): Requesting list of all users");
+        SqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("name", name);
+        User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE users.u_name= :name", namedParameters, new UserRowMapper());
+        log.info("getUserByName(" + name + "): Requesting list of all users");
 
-        for (User user : listUsers) {
-            if (user.getName().equalsIgnoreCase(name)) {
-                log.info("getUserByName("+name+"): User founded");
-                return user;
-            }
-        }
-        log.info("getUserByName("+name+"): Doesn't exists");
-        return null;
+        return user;
     }
 
 }

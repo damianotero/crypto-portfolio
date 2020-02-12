@@ -35,7 +35,7 @@ public class CoinsController {
     @GetMapping("/list")
     public String listCoins(Model model) {
         log.info("listCoins(): Method from controller called");
-        User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
 
         if (user != null) {
             log.info("listCoins(): User: " + user.getName() + " authenticated");
@@ -54,7 +54,7 @@ public class CoinsController {
     public String addCoinForm(Model model) {
         log.info("addCoinForm(): Method from controller called");
 
-        User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
         if (user != null) {
             log.info("addCoinForm(): User: " + user.getName() + " authenticated, redirecting to add-coin");
             model.addAttribute("coin", new Coin());
@@ -68,7 +68,7 @@ public class CoinsController {
     @PostMapping("/add-coin")
     public String addCoinSubmit(@ModelAttribute Coin coin, BindingResult errors, Model model) {
         log.info("addCoinSubmit(): Post Method controller called.");
-        User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
         coin.setUserId(user.getId());
         coinService.addCoin(coin);
         log.info("addCoinSubmit(): Adding coin: " + coin.getName() + " to the User: " + user.getName());
@@ -82,7 +82,7 @@ public class CoinsController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteCoin(@RequestParam String id, Model model) {
         log.info("deleteCoin(): Method from controller called");
-        User user = userService.getUserByName(userAuthentication.getUserAuthenticated());
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
         coinService.deleteCoin(Integer.valueOf(id));
         log.info("deleteCoin(): Deleting coin with id:" + id + " from User: " + user.getName());
         model.addAttribute("coinList", coinService.getCoinsByUser(user));

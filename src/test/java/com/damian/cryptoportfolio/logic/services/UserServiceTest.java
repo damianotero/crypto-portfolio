@@ -1,12 +1,16 @@
 package com.damian.cryptoportfolio.logic.services;
 
+
 import com.damian.cryptoportfolio.data.UserRepository;
+import com.damian.cryptoportfolio.logic.exceptions.UserAlreadyExistsException;
 import com.damian.cryptoportfolio.logic.models.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
 
+    public static final String NAME = "test name";
     @InjectMocks
     UserService userService;
 
@@ -30,18 +35,27 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUser() {
+    public void whenAddingANewUser_userIsCreated() {
+        User user = aUserWith(NAME);
+        when(userRepository.addUser(user)).thenReturn(user);
 
-        User user = new User();
-        user.setName("test name");
-        user.setId(23423423);
-        user.setPassword("3245234");
+        User createdUser = userService.addUser(user);
 
-        userService.addUser(user);
-        verify(userRepository).addUser(user);
-
-
+        assertThat(createdUser).isEqualTo(user);
     }
+
+    @Test(expected = UserAlreadyExistsException.class)
+    public void whenAddingAUserThatAlreadyExists_throwsUserAlreadyExistsException(){
+        User user = aUserWith(NAME);
+        when(userRepository.addUser(user)).thenThrow(DataIntegrityViolationException.class);
+
+<<<<<<< HEAD
+
+=======
+       userService.addUser(user);
+>>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
+    }
+
 
     @Test
     public void getUsers() {
@@ -50,15 +64,22 @@ public class UserServiceTest {
         user.setName("test name");
         userList.add(user);
 
+<<<<<<< HEAD
         when(userRepository.getUsers()).thenReturn(userList);
 
         userList= userRepository.getUsers();
         assertThat(userList.get(0).getName()).isEqualTo("test name");
         
+=======
+        List<User> createdList = userService.getUsers();
+
+        assertThat(createdList).isEqualTo(userList);
+>>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
     }
 
     @Test
     public void validateUser() {
+<<<<<<< HEAD
         User user = new User();
         user.setName("test name");
         user.setId(23423423);
@@ -71,15 +92,37 @@ public class UserServiceTest {
         user2.setId(23423423);
         user2.setPassword("3245234");
         assertThat(userService.validateUser(user2)).isEqualTo(true);
+=======
+        User user = aUserWith(NAME);
+
+        userService.userExists(user);
+        verify(userRepository).userExists(user);
+    }
+
+    @Test  //---- GOOD TEST ----
+    public void givenAValidUser_shouldFindTheUser() {
+        when(userRepository.findUserByName(NAME)).thenReturn(aUserWith(NAME));
+
+        User foundUser = userService.findUserByName(NAME);
+
+        assertThat(foundUser).isEqualTo(aUserWith(NAME));
+>>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
     }
 
     @Test
-    public void getUserByName() {
+    public void givenAnInvalidUser_shouldReturnNull(){
+        when(userRepository.findUserByName(anyString())).thenThrow(EmptyResultDataAccessException.class);
+
+        User foundUser = userService.findUserByName(NAME);
+
+        assertThat(foundUser).isNull();
+    }
+
+    private User aUserWith(String name) {
         User user = new User();
-        user.setName("test name");
+        user.setName(name);
         user.setId(23423423);
         user.setPassword("3245234");
-        when(userRepository.getUserByName(anyString())).thenReturn(user);
-
+        return user;
     }
 }
