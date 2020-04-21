@@ -49,11 +49,7 @@ public class UserServiceTest {
         User user = aUserWith(NAME);
         when(userRepository.addUser(user)).thenThrow(DataIntegrityViolationException.class);
 
-<<<<<<< HEAD
-
-=======
        userService.addUser(user);
->>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
     }
 
 
@@ -64,35 +60,19 @@ public class UserServiceTest {
         user.setName("test name");
         userList.add(user);
 
-<<<<<<< HEAD
         when(userRepository.getUsers()).thenReturn(userList);
 
         userList= userRepository.getUsers();
         assertThat(userList.get(0).getName()).isEqualTo("test name");
         
-=======
         List<User> createdList = userService.getUsers();
 
         assertThat(createdList).isEqualTo(userList);
->>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
     }
 
     @Test
     public void validateUser() {
-<<<<<<< HEAD
-        User user = new User();
-        user.setName("test name");
-        user.setId(23423423);
-        user.setPassword("3245234");
-        userService.validateUser(user);
-        verify(userRepository).validateUser(user);
 
-        User user2 = new User();
-        user2.setName("test name");
-        user2.setId(23423423);
-        user2.setPassword("3245234");
-        assertThat(userService.validateUser(user2)).isEqualTo(true);
-=======
         User user = aUserWith(NAME);
 
         userService.userExists(user);
@@ -106,7 +86,6 @@ public class UserServiceTest {
         User foundUser = userService.findUserByName(NAME);
 
         assertThat(foundUser).isEqualTo(aUserWith(NAME));
->>>>>>> 44bbe2fada434650f511547e96ec05d3164167d5
     }
 
     @Test
