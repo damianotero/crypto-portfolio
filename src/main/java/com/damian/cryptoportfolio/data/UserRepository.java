@@ -3,6 +3,7 @@ package com.damian.cryptoportfolio.data;
 import com.damian.cryptoportfolio.logic.models.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -18,7 +19,7 @@ public class UserRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
 
-    public User addUser(User user) { //todo change primary key to name instead of id in users
+    public User addUser(User user) {
         log.info("addUser(): Method called");
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("name", user.getName())
@@ -36,18 +37,25 @@ public class UserRepository {
         return listUsers;
     }
 
-    public boolean userExists(User requestedUser) {//todo change the for for a query and try catch exception
+    public boolean userExists(User requestedUser) {//todo change exception to service?
         log.info("validateUser(): Method called");
-        List<User> listUsers = jdbcTemplate.query("SELECT * FROM users", new UserRowMapper());
-        log.info("validateUser(" + requestedUser + "): Requesting list of all users");
-        for (User user : listUsers) {
-            if (user.equals(requestedUser)) {
-                log.info("validateUser(" + requestedUser + "): User founded");
-                return true;
-            }
+        SqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("name", requestedUser.getName());
+        try {
+            User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE users.u_name= :name", namedParameters, new UserRowMapper());
+            return true;
+        } catch (EmptyResultDataAccessException e){
+            return false;
         }
-        log.info("validateUser(" + requestedUser + "): Doesn't exist");
-        return false;
+//        log.info("validateUser(" + requestedUser + "): Requesting list of all users");
+//        for (User user : listUsers) {
+//            if (user.equals(requestedUser)) {
+//                log.info("validateUser(" + requestedUser + "): User founded");
+//                return true;
+//            }
+//        }
+//        log.info("validateUser(" + requestedUser + "): Doesn't exist");
+//        return false;
     }
 
     public User findUserByName(String name) {
