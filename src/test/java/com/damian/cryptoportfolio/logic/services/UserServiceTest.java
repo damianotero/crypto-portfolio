@@ -30,7 +30,7 @@ public class UserServiceTest {
     UserRepository userRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -45,38 +45,43 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserAlreadyExistsException.class)
-    public void whenAddingAUserThatAlreadyExists_throwsUserAlreadyExistsException(){
+    public void whenAddingAUserThatAlreadyExists_throwsUserAlreadyExistsException() {
         User user = aUserWith(NAME);
         when(userRepository.addUser(user)).thenThrow(DataIntegrityViolationException.class);
 
-       userService.addUser(user);
+        userService.addUser(user);
     }
 
 
     @Test
-    public void getUsers() {
-        List<User> userList = new ArrayList<>();
-        User user = new User();
-        user.setName("test name");
-        userList.add(user);
-
+    public void getUsers_shouldReturnAListOfUsers() {
+        List<User> userList = aListOfUsers();
         when(userRepository.getUsers()).thenReturn(userList);
 
-        userList= userRepository.getUsers();
-        assertThat(userList.get(0).getName()).isEqualTo("test name");
-        
         List<User> createdList = userService.getUsers();
 
         assertThat(createdList).isEqualTo(userList);
     }
 
     @Test
-    public void validateUser() {
-
+    public void userExistsWithAValidUser_ShouldReturnTrue() {
         User user = aUserWith(NAME);
+        when(userRepository.userExists(user)).thenReturn(true);
 
-        userService.userExists(user);
+        boolean doExists = userService.userExists(user);
         verify(userRepository).userExists(user);
+
+        assertThat(doExists).isTrue();
+    }
+
+    @Test
+    public void userExistsWithANoExistingUser_ShouldReturnFalse(){
+        User user = aUserWith(NAME);
+        when(userRepository.userExists(user)).thenReturn(false);
+
+        boolean doExists = userService.userExists(user);
+
+        assertThat(doExists).isFalse();
     }
 
     @Test  //---- GOOD TEST ----
@@ -89,7 +94,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenAnInvalidUser_shouldReturnNull(){
+    public void givenAnInvalidUser_shouldReturnNull() {
         when(userRepository.findUserByName(anyString())).thenThrow(EmptyResultDataAccessException.class);
 
         User foundUser = userService.findUserByName(NAME);
@@ -103,5 +108,16 @@ public class UserServiceTest {
         user.setId(23423423);
         user.setPassword("3245234");
         return user;
+    }
+
+    private List<User> aListOfUsers() {
+        List<User> userList = new ArrayList<>();
+        User user1 = aUserWith("name1");
+        User user2 = aUserWith("name2");
+        User user3 = aUserWith("name3");
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        return userList;
     }
 }
