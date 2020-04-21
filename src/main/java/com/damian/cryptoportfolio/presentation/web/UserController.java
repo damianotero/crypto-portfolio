@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping("/addUser")
     public String addUserSubmmit(@ModelAttribute User user, BindingResult errors, Model model) {
         log.info("addUserSubmit(): Controller Method called");
-        if (!userService.validateUser(user)) {
+        if (!userService.userExists(user)) {
             userService.addUser(user);
             log.info("addUserSubmit(): User: " + user.getName()+ " is registered Ok");
             return "register_ok";
