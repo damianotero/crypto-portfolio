@@ -89,5 +89,10 @@ public class CoinsController {
         return "coin_list";
     }
 
+    @GetMapping("/info")
+    public String infoCoin(Model model) {
+        return "info";
+    }
+
 
 }

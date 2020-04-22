@@ -88,3 +88,20 @@ a:hover {
     text-align: center;
 }
 
+
+	.hoverTable{
+		width:100%;
+
+		cursor: pointer;
+	}
+
+	/* Define the default color for all the table rows */
+/*	.hoverTable tr{
+		background: #b8d1f3;
+	}
+	*/
+
+  .hoverTable tr:hover {
+          background-color: #ffff99;
+      }
+

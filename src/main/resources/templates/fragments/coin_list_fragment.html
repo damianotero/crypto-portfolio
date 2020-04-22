@@ -23,8 +23,11 @@
             <td colspan="4" align="center"> No Coins Available</td>
         </tr>
 
-        <tr th:each="coin : ${coinList}">
-            <td><img th:src="@{${'/images/' + coin.token + '.png'}}"/> </td>
+        <thead class="hoverTable">
+        <tr th:each="coin : ${coinList}"
+            th:onclick="'javascript:rowClicked();'" >
+
+            <td><img th:src="@{${'/images/' + coin.token + '.png'}}"/></td>
             <td><span th:text="${coin.name}"> Name </span></td>
             <td><span th:text="${coin.token}"> Token </span></td>
             <td><span th:text="${coin.amount}"> Amount </span></td>
@@ -41,14 +44,21 @@
                     <button type="submit" value="Delete" class="btn btn-danger">Delete</button>
                 </form>
             </td>
+        <script>
+    function rowClicked() {
+       window.location.href = "/coins/info";
+    }
+        </script>
+
         </tr>
-        <!--<tr>-->
-            <!--<td><span th:text="${totalAmount)"> Total </span></td>-->
-        <!--</tr>-->
+    </thead>
+
         </tbody>
     </table>
 
 </div>
+
+
 
 
 </html>
