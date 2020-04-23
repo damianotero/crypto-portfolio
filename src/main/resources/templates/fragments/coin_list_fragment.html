@@ -24,8 +24,9 @@
         </tr>
 
         <thead class="hoverTable">
-        <tr th:each="coin : ${coinList}"
-            th:onclick="'javascript:rowClicked();'" >
+        <tr th:each="coin : ${coinList}" th:data-coin-name="${coin.name}"
+            onclick="openPage(this.getAttribute('data-coin-name'));" >
+<!--            th:onclick="'javascript:openPage('/coins/' + ${coin.name});'" >-->
 
             <td><img th:src="@{${'/images/' + coin.token + '.png'}}"/></td>
             <td><span th:text="${coin.name}"> Name </span></td>
@@ -44,11 +45,7 @@
                     <button type="submit" value="Delete" class="btn btn-danger">Delete</button>
                 </form>
             </td>
-        <script>
-    function rowClicked() {
-       window.location.href = "/coins/info";
-    }
-        </script>
+
 
         </tr>
     </thead>
