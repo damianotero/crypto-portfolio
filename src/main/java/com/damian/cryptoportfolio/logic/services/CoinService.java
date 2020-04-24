@@ -29,4 +29,16 @@ public class CoinService {
     public void deleteCoin(int id) {
         coinRepository.deleteCoin(id);
     }
+
+    public Coin getCoinByName(String name){
+        Coin coin = new Coin();
+        coin.setName(name);
+        List<Coin> coinList = getCoins();
+        for (Coin listedCoin : coinList) {
+            if (listedCoin.equals(coin)){
+                return listedCoin;
+            }
+        }
+        return null;
+    }
 }

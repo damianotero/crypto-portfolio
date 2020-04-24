@@ -89,8 +89,11 @@ public class CoinsController {
         return "coin_list";
     }
 
-    @GetMapping("/info")
-    public String infoCoin(Model model) {
+    @GetMapping("/{coinName}")
+    public String infoCoin(@PathVariable(value = "coinName") String coinName, Model model) {
+        User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
+        Coin coin = coinService.getCoinByName(coinName);
+        model.addAttribute("coin", coin);
         return "info";
     }
 

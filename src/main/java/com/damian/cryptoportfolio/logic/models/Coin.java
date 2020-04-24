@@ -91,4 +91,14 @@ public class Coin {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coin coin = (Coin) o;
+        return name.equals(coin.name);
+    }
+
+
 }
