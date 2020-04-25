@@ -33,10 +33,10 @@
             <td><span th:text="${coin.token}"> Token </span></td>
             <td><span th:text="${coin.amount}"> Amount </span></td>
             <!--<td><span th:text="${coin.price}"> Price </span></td>-->
-            <td><span th:with="var=${coin.price}" th:text="${#numbers.formatDecimal(var,1,2)+' €'}"> Price </span></td>
+            <td><span th:with="var=${coin.price}" th:text="${#numbers.formatDecimal(var,1,2)+' $'}"> Price </span></td>
 
             <td><span th:with="var=${coin.percentage}" th:text="${#numbers.formatDecimal(var,1,2)+' %'}"> Change (24h) </span></td>
-            <td><span th:with="var=${coin.amount * coin.price}" th:text="${#numbers.formatDecimal(var,0,2)+ ' €'}"> Total </span></td>
+            <td><span th:with="var=${coin.amount * coin.price}" th:text="${#numbers.formatDecimal(var,0,2)+ ' $'}"> Total </span></td>
 
             <td>
 

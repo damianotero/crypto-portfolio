@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<div th:fragment="btc-fragment" class="content" align="center">
+<body>
+<div  class="whole-card">
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright"><a href="https://es.tradingview.com/symbols/COINBASE-BTCUSD/" rel="noopener" target="_blank"><span class="blue-text">Tipos del BTCUSD</span></a> por TradingView</div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        {
+          "symbol": "BITFINEX:BTCUSD",
+          "width": 350,
+          "height": 280,
+          "locale": "es",
+          "dateRange": "3m",
+          "colorTheme": "light",
+          "trendLineColor": "#37a6ef",
+          "underLineColor": "#E3F2FD",
+          "isTransparent": false,
+          "autosize": false,
+          "largeChartUrl": ""
+        }
+      </script>
+</div>
+<!-- TradingView Widget END -->
+
+
+<div class="card-body">
+
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+    </p>
+    <div>
+        <div class="info-row row-color">
+            <span>Amount of coins</span>
+            <h5 th:text="${coin.amount + ' ' + coin.token}">23423 $</h5>
+        </div>
+
+        <div class="info-row row-color">
+            <span>Total value</span>
+            <h5 th:with="var=${coin.amount * coin.price}" th:text="${#numbers.formatDecimal(var,0,2)+ ' $'}">23423 $</h5>
+        </div>
+        <div class="info-row row-color">
+            <span>24h change</span>
+            <h5 th:with="var=${coin.percentage}" th:text="${#numbers.formatDecimal(var,1,2)+' %'}">23423 $</h5>
+        </div>
+        <div class="card-buttons info-row">
+            <a href="#" class="btn btn-primary">Add alert</a>
+            <a href="#" class="btn btn-primary">Change amount</a>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</div>
+</html>
+
+

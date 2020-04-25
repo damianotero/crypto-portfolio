@@ -1,28 +1,32 @@
 
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <div th:insert="fragments/head_fragment.html :: head_fragment"/>
+    <div th:insert="fragments/head_fragment.html :: head_fragment" />
     <title>Info</title>
 </head>
+
 <body>
+<nav>
 
-<div class="container">
-   <h1 align="center">ABOUT</h1>
-    <div class="text">
-    <p>
-        THIS IS INFO PAGE
-    </p>
-    </div>
+</nav>
 
-    <div class="contact">
 
-        <span>Developed by Damian Otero. Check my website </span> <a href="http://damianotero.info/">damianotero.info</a>
-
-    </div>
+<div class="card-flex-title">
+    <img th:src="@{${'/images/' + coin.token + '.png'}}" class="img-logo" alt="Logo">
+    <h5 class="coin-title" th:text="${coin.name}">Coin Name</h5>
 </div>
 
+
+<div th:switch="${coin.token}">
+
+
+    <div th:case="BTC" th:insert="fragments/tv/BTC.html :: btc-fragment" />
+<!--    <div th:case="ETH" th:insert="about :: btc-fragment" />-->
+<!--    <div th:case="LTC" th:insert="dse/tv :: btc-fragment" />-->
+
+</div>
 </body>
 
 </html>
