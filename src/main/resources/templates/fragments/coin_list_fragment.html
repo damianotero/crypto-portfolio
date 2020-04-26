@@ -25,14 +25,13 @@
 
         <thead class="hoverTable">
         <tr th:each="coin : ${coinList}" th:data-coin-name="${coin.name}"
-            onclick="openPage(this.getAttribute('data-coin-name'));" >
-<!--            th:onclick="'javascript:openPage('/coins/' + ${coin.name});'" >-->
+            data-toggle="modal" data-target="#exampleModal">
+<!--            onclick="openPage(this.getAttribute('data-coin-name'));" >-->
 
             <td><img th:src="@{${'/images/' + coin.token + '.png'}}"/></td>
             <td><span th:text="${coin.name}"> Name </span></td>
             <td><span th:text="${coin.token}"> Token </span></td>
             <td><span th:text="${coin.amount}"> Amount </span></td>
-            <!--<td><span th:text="${coin.price}"> Price </span></td>-->
             <td><span th:with="var=${coin.price}" th:text="${#numbers.formatDecimal(var,1,2)+' $'}"> Price </span></td>
 
             <td><span th:with="var=${coin.percentage}" th:text="${#numbers.formatDecimal(var,1,2)+' %'}"> Change (24h) </span></td>
@@ -46,6 +45,9 @@
                 </form>
             </td>
 
+            <!-- Modal -->
+            <div th:insert="fragments/modals/coin-info.html :: modal-fragment" />
+            <!-- Modal -->
 
         </tr>
     </thead>

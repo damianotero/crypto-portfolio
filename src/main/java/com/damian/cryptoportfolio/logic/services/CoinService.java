@@ -41,4 +41,16 @@ public class CoinService {
         }
         return null;
     }
+
+    public Coin getCoinById(int id) {
+        Coin coin = new Coin();
+        coin.setId(id);
+        List<Coin> coinList = getCoins();
+        for (Coin listedCoin : coinList) {
+            if (listedCoin.getId()==id){
+                return listedCoin;
+            }
+        }
+        return null;
+    }
 }

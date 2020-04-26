@@ -3,6 +3,10 @@ window.open(path,'MyWindow','toolbar=no,location=no,directories=no,status=yes,me
 
 }
 
+function open(x){
+    $(x).modal('show');
+}
+
 var chart = new cryptowatch.Embed('bitfinex', 'btcusd', {
   timePeriod: '1d',
   width: 650,
