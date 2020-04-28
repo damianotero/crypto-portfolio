@@ -1,16 +1,16 @@
 
 const loadModalFields = async function(coinName) {
-  let response = await fetch('/coins/info/' + coinName);
+  let response = await fetch('../coins/info/' + coinName);
 
   let myJson = await response.json();
-  var total = (myJson.price * myJson.amount).toFixed(2);
+  var total = myJson.price * myJson.amount.toFixed(2);
   var percentage = (myJson.percentage).toFixed(2);
   console.log(myJson.percentage);
   document.getElementById("name").innerHTML = myJson.name;
   document.getElementById("total").innerHTML = total + " $";
   document.getElementById("amount").innerHTML = myJson.amount + " " + myJson.token;
   document.getElementById("percentage").innerHTML = percentage + " %";
-  document.getElementById("image").src = "/images/" + myJson.token + ".png";
+  document.getElementById("image").src = "../images/" + myJson.token + ".png";
 
   document.getElementById("trading-view").innerHTML = "";
   var script = document.createElement("script");
@@ -35,7 +35,4 @@ function open(x) {
   $(x).modal('show');
 }
 
-$('#exampleModal').on('hidden.bs.modal', function (e) {  //TODO MAKE THIS WORKS
-    console.log("I've closed!");
-});
 
