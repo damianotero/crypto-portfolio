@@ -39,12 +39,17 @@ public class CoinRepository {
         log.info("getCoins(): Method called");
         List<Coin> listCoins = jdbcTemplate.query("SELECT * FROM coins", new CoinRowMapper());
         log.info("getCoins(): Retrieving the list of coins.");
-        for (Coin coin : listCoins) {
-            coin.setPrice(getPrice(coin.getToken()));
-            coin.setPercentage(getPercentage(coin.getToken()));
-            log.info("getCoins(): Getting price and percentage from the API and setting in the Coin object");
-        }
+        setCoinPrices(listCoins);
         return listCoins;
+    }
+
+    public Coin getCoinByName(String name){
+        SqlParameterSource namedParameters= new MapSqlParameterSource()
+                .addValue("name", name);
+        List<Coin> listCoins  = jdbcTemplate.query("SELECT * FROM coins WHERE c_name= :name",namedParameters,new CoinRowMapper());
+        setCoinPrices(listCoins);
+        return listCoins.get(0);
+
     }
 
     public List<Coin> getCoinsByUser(User user) {
@@ -114,9 +119,17 @@ public class CoinRepository {
         log.info("getPercentage("+token+"): Method called");
         RestTemplate restTemplate = new RestTemplate();
         CoinPriceResult coinPriceResult = restTemplate.getForObject("https://api.cryptowat.ch/markets/bitfinex/" + token + "usd/summary", CoinPriceResult.class);
-        log.info("getPrice(" + token + "): Get the percentage from API to a RestTemplate and return the value.");
+        log.info("getPercentage(" + token + "): Get the percentage from API to a RestTemplate and return the value.");
         double percentage = Double.valueOf(coinPriceResult.getResult().getPrice().getChange().getPercentage());
         return percentage * 100;
 
+    }
+
+    private void setCoinPrices(List<Coin> listCoins) {
+        for (Coin coin : listCoins) {
+            coin.setPrice(getPrice(coin.getToken()));
+            coin.setPercentage(getPercentage(coin.getToken()));
+            log.info("getCoins(): Getting price and percentage from the API and setting in the Coin object");
+        }
     }
 }

@@ -18,13 +18,12 @@
 }
 
 .info-row {
-  font-size: larger;
+  font-size: medium;
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 2px;
   display: flex;
   justify-content: space-around;
-  width: 50%;
   align-items: baseline;
 }
 

@@ -31,18 +31,10 @@ public class CoinService {
     }
 
     public Coin getCoinByName(String name){
-        Coin coin = new Coin();
-        coin.setName(name);
-        List<Coin> coinList = getCoins();
-        for (Coin listedCoin : coinList) {
-            if (listedCoin.equals(coin)){
-                return listedCoin;
-            }
-        }
-        return null;
+        return coinRepository.getCoinByName(name);
     }
 
-    public Coin getCoinById(int id) {
+    public Coin getCoinById(int id) {  //TODO CHANGE FOR QUERY IN REPOSITORY
         Coin coin = new Coin();
         coin.setId(id);
         List<Coin> coinList = getCoins();

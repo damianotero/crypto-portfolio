@@ -76,7 +76,6 @@ public class CoinsController {
         model.addAttribute("userName", user.getName());
 
         return "coin_list";
-
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -88,13 +87,4 @@ public class CoinsController {
         model.addAttribute("coinList", coinService.getCoinsByUser(user));
         return "coin_list";
     }
-
-    @GetMapping("/{coinName}")
-    public String infoCoin(@PathVariable(value = "coinName") String coinName, Model model) {
-        Coin coin = coinService.getCoinByName(coinName);
-        model.addAttribute("coin", coin);
-        return "info";
-    }
-
-
 }
