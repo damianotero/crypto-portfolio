@@ -41,4 +41,6 @@ public class UserController {
             return "register_failed";
         }
     }
+
+    //TODO  When tries to register user that already exists, it crashes. Create an exception.
 }

@@ -29,4 +29,20 @@ public class CoinService {
     public void deleteCoin(int id) {
         coinRepository.deleteCoin(id);
     }
+
+    public Coin getCoinByName(String name){
+        return coinRepository.getCoinByName(name);
+    }
+
+    public Coin getCoinById(int id) {  //TODO CHANGE FOR QUERY IN REPOSITORY
+        Coin coin = new Coin();
+        coin.setId(id);
+        List<Coin> coinList = getCoins();
+        for (Coin listedCoin : coinList) {
+            if (listedCoin.getId()==id){
+                return listedCoin;
+            }
+        }
+        return null;
+    }
 }

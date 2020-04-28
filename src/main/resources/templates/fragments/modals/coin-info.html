@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="modal-fragment" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="card-flex-title">
+                    <img id="image" class="img-logo" alt="Logo">
+                    <h2 class="modal-title" id="name">---</h2>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="whole-card">
+                    <section th:insert="fragments/trading-view-widget.html :: trading-view-fragment" />
+
+                    <div class="card-body">
+
+                        <p class="card-text">Realtime graph with the price of the last 3 months.
+                        </p>
+                        <div>
+                            <div class="info-row row-color">
+                                <span>Amount of coins</span>
+                                <h6 id="amount"> ... </h6>
+                            </div>
+
+                            <div class="info-row row-color">
+                                <span>Total value</span>
+                                <h6 id="total"> ... </h6>
+                            </div>
+                            <div class="info-row row-color">
+                                <span>24h change</span>
+                                <h6 id="percentage"> ... </h6>
+                            </div>
+                            <div class="card-buttons info-row">
+                                <a href="#" class="btn btn-primary">Add alert</a>
+                                <a href="#" class="btn btn-primary">Change amount</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

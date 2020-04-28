@@ -64,10 +64,13 @@ public class CoinServiceTest {
     }
 
     @Test
-    public void afterDeleteCoinById_ShouldNotFindCoin() {// todo change this test
+    public void afterDeleteCoinById_ShouldNotFindCoin() {
+        List<Coin> coins = aListOfCoins();
+        coins.add(aCoinWith(ID));
 
         coinService.deleteCoin(ID);
-        verify(coinRepository).deleteCoin(ID);
+        assertThat(coinService.getCoinById(ID)).isNull();
+
     }
 
     private User aUserWith(String name) {
