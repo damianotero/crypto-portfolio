@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:insert="fragments/head_fragment.html :: head_fragment"/>
-    <title>Add Coins</title>
-</head>
+
+<head th:insert="fragments/head_fragment.html :: head_fragment" />
+
 <body>
-<div th:insert="fragments/header_fragment.html :: headerFragment"/>
+<div th:insert="fragments/nav-fragment.html :: navFragment" />
 
+<div class="box-card-login">
 
-<div class="section">
-    <div class="container">
+    <div class="section">
+        <div class="container">
 
-        <h2 align="center">LOGIN TO CONTINUE</h2>
-    </div>
+            <h2 align="center">LOGIN TO CONTINUE</h2>
+        </div>
 
-    <div class="container">
-        <form action="login" method="post">
-            <div class="form-group">
-                <label>User</label>
-                <input type="text" class="form-control" name="username" value=""
-                       placeholder="User Name">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Password">
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button type="submit" value="Submit" class="btn btn-primary">Login</button>
+        <div class="container">
+            <form action="login" method="post">
+                <div class="form-group">
+                    <label>User</label>
+                    <input type="text" class="form-control" name="username" value="" placeholder="User Name">
                 </div>
-                <div class="register">
-                    <a th:href="@{/users/addUser}" class="btn btn-secondary">Register</a>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
                 </div>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" value="Submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <div class="register">
+                        <a th:href="@{/users/addUser}" class="btn btn-secondary">Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 </body>

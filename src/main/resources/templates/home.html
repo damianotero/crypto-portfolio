@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>My Crypto PortFolio</title>
-    <div th:insert="fragments/head_fragment.html :: head_fragment"/>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/head_fragment.html :: head_fragment" />
+
 <body>
 
-<div  th:insert="fragments/header_fragment.html :: headerFragment"/>
+<div th:insert="fragments/nav-fragment.html :: navFragment" />
 
-<div class="section">
-<div class="container">
-<h1 align="center">
+<div class="box-card">
+    <div class="card">
 
-    <span th:text="WELCOME">WELCOME</span>
+        <!-- Card image -->
+        <div class="view overlay">
+            <img class="card-img-top" th:src="@{/images/cover.jpg}" alt="Cryptos">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+        <!-- Card content -->
+        <div class="card-body">
 
-</h1>
+            <!-- Title -->
+            <h4 class="card-title">Welcome to the Crypto Portfolio</h4>
+            <!-- Text -->
+            <p class="card-text">The cryptocurrency portfolio is a useful tool that allows you to easily track in real time the performance of all your cryptocurrencies in one place.</p>
+            <p class="card-text">Register with your username and add the crypto coins you have in your wallet to track the price and the value of your investment.</p>
+            <!-- Button -->
+            <button type="button" class="btn btn-primary"><a th:href="@{/users/addUser}">Register and create your portfolio</a></button>
 
-    <div class="home-text">
-        <p>The cryptocurrency portfolio is a useful tool that allows you to easily track in real time the performance of all your cryptocurrencies in one place.</p>
+        </div>
+
     </div>
 
-</div>
-</div>
-
 </body>
+
 </html>
