@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:insert="fragments/head_fragment.html :: head_fragment"/>
-    <title>Add Coins</title>
-</head>
+
+<head th:insert="fragments/head_fragment.html :: head_fragment" />
+
 <body>
-<div  th:insert="fragments/header_fragment.html :: headerFragment"/>
+<div th:insert="fragments/nav-fragment.html :: navFragment" />
 
+<div class="box-card-add">
+    <div class="content">
+        <form th:action="@{/coins/add-coin}" th:object="${coin}" method="post">
+            <div class="form-group">
+                <label>Coin</label>
 
-<div class="content">
-    <form th:action="@{/coins/add-coin}" th:object="${coin}" method="post">
-        <div class="form-group">
-            <label>Coin</label>
+                <select th:field="*{token}" class="form-control">
+                    <option th:value="BTC">Bitcoin</option>
+                    <option th:value="ETH">Etherum</option>
+                    <option th:value="XRP">Ripple</option>
+                    <option th:value="BCH">Bitcoin Cash</option>
+                    <option th:value="USDT">Tether</option>
+                    <option th:value="LTC">Litecoin</option>
+                    <option th:value="EOS">EOS</option>
+                    <option th:value="BSV">Bitcoin SV</option>
+                    <option th:value="XLM">Stellar</option>
+                    <option th:value="TRX">TRON</option>
+                    <option th:value="XMR">Monero</option>
+                </select>
 
-        <select th:field="*{token}" class="form-control">
-            <option th:value="BTC">Bitcoin</option>
-            <option th:value="ETH">Etherum</option>
-            <option th:value="XRP">Ripple</option>
-            <option th:value="BCH">Bitcoin Cash</option>
-            <option th:value="USDT">Tether</option>
-            <option th:value="LTC">Litecoin</option>
-            <option th:value="EOS">EOS</option>
-            <option th:value="BSV">Bitcoin SV</option>
-            <option th:value="XLM">Stellar</option>
-            <option th:value="TRX">TRON</option>
-            <option th:value="XMR">Monero</option>
+            </div>
 
-        </select>
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" th:field="*{amount}" class="form-control" placeholder="Amount">
+            </div>
 
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
 
-        </div>
-        <!--<div class="form-group">-->
-            <!--<label>Token</label>-->
-            <!--<input type="text" th:field="*{token}" class="form-control" placeholder="Token">-->
-        <!--</div>-->
-
-        <div class="form-group">
-            <label>Amount</label>
-            <input type="number" th:field="*{amount}" class="form-control" placeholder="Amount">
-        </div>
-
-        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-
-    </form>
+        </form>
+    </div>
 </div>
 
 </body>
+
 </html>
