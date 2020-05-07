@@ -38,3 +38,6 @@ public class CoinPrice {
         this.volumeQuote = volumeQuote;
     }
 }
+
+
+//TODO UNIFICAR CLASES Y LOMBOK
