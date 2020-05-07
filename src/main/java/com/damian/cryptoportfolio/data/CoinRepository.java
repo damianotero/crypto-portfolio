@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
@@ -43,10 +44,10 @@ public class CoinRepository {
         return listCoins;
     }
 
-    public Coin getCoinByName(String name){
-        SqlParameterSource namedParameters= new MapSqlParameterSource()
+    public Coin getCoinByName(String name) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("name", name);
-        List<Coin> listCoins  = jdbcTemplate.query("SELECT * FROM coins WHERE c_name= :name",namedParameters,new CoinRowMapper());
+        List<Coin> listCoins = jdbcTemplate.query("SELECT * FROM coins WHERE c_name= :name", namedParameters, new CoinRowMapper());
         setCoinPrices(listCoins);
         return listCoins.get(0);
 
@@ -59,12 +60,16 @@ public class CoinRepository {
         List<Coin> listCoins = jdbcTemplate
                 .query("select coins.c_id, coins.c_name, coins.c_token, coins.c_amount, coins.c_u_id  from coins inner join users on coins.c_u_id = users.u_id where u_name = :userName ;", namedParameters, new CoinRowMapper());
         log.info("getCoinsByUser(" + user.getName() + "):  Query to DB: c_name, c_token, c_amount, c_u_id, from user:" + user.getName());
-        for (Coin coin : listCoins) {
-            coin.setPrice(getPrice(coin.getToken()));
-            coin.setPercentage(getPercentage(coin.getToken()));
-        }
+
         log.info("getCoinsByUser(): Getting price and percentage from the API and setting in the Coin object");
-        return listCoins;
+        return listCoins.parallelStream()
+                .map(coin -> { // todo separate in 2 threads
+                    coin.setPrice(getPrice(coin.getToken()));
+                    coin.setPercentage(getPercentage(coin.getToken()));
+                    return coin;
+                })
+                .collect(Collectors.toList());
+
     }
 
     public void addCoin(Coin coin) {
@@ -116,7 +121,7 @@ public class CoinRepository {
     }
 
     public double getPercentage(String token) {
-        log.info("getPercentage("+token+"): Method called");
+        log.info("getPercentage(" + token + "): Method called");
         RestTemplate restTemplate = new RestTemplate();
         CoinPriceResult coinPriceResult = restTemplate.getForObject("https://api.cryptowat.ch/markets/bitfinex/" + token + "usd/summary", CoinPriceResult.class);
         log.info("getPercentage(" + token + "): Get the percentage from API to a RestTemplate and return the value.");
