@@ -1,8 +1,11 @@
 package com.damian.cryptoportfolio.data.jsonproperties;
 
-import com.damian.cryptoportfolio.logic.models.Price;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CoinPrice {
 
     @JsonProperty("price")
@@ -13,31 +16,7 @@ public class CoinPrice {
     @JsonProperty("volumeQuote")
     private String volumeQuote;
 
-
-    public Price getPrice() {
-        return price;
-    }
-
-    public void setPrice(Price price) {
-        this.price = price;
-    }
-
-    public String getVolume() {
-        return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
-    }
-
-    public String getVolumeQuote() {
-        return volumeQuote;
-    }
-
-    public void setVolumeQuote(String volumeQuote) {
-        this.volumeQuote = volumeQuote;
-    }
 }
 
 
-//TODO UNIFICAR CLASES Y LOMBOK
+//TODO UNIFICAR CLASES

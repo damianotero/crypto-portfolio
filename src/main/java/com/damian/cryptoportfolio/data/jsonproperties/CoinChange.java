@@ -1,7 +1,11 @@
 package com.damian.cryptoportfolio.data.jsonproperties;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CoinChange {
 
     @JsonProperty("percentage")
@@ -9,20 +13,4 @@ public class CoinChange {
     @JsonProperty("absolute")
     private String absolute;
 
-
-    public String getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
-    }
-
-    public String getAbsolute() {
-        return absolute;
-    }
-
-    public void setAbsolute(String absolute) {
-        this.absolute = absolute;
-    }
 }
