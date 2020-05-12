@@ -1,6 +1,5 @@
 package com.damian.cryptoportfolio.data;
 
-import com.damian.cryptoportfolio.data.jsonproperties.CoinPriceOnly;
 import com.damian.cryptoportfolio.data.jsonproperties.CoinPriceResult;
 import com.damian.cryptoportfolio.logic.authentification.UserAuthentication;
 import com.damian.cryptoportfolio.logic.models.Coin;
@@ -74,8 +73,7 @@ public class CoinRepository {
 
     public void addCoin(Coin coin) {
         log.info("addCoin(): Method called");
-        HashMap<String, String> tokensMap = coin.setMap();
-        coin.setName(tokensMap.get(coin.getToken()));
+        coin.setName(coin.getTokens().get(coin.getToken()));
         log.info("addCoin(): Setting name of the coin from map of coin names and tokens.");
         User user = userService.findUserByName(userAuthentication.getUserAuthenticated());
         log.info("addCoin(): Getting user authenticated.  -> getUserByName(userAuthentication.getUserAuthenticated()");
@@ -115,9 +113,9 @@ public class CoinRepository {
     public double getPrice(String token) {
         log.info("getPrice(" + token + "): Method called");
         RestTemplate restTemplate = new RestTemplate();
-        CoinPriceOnly priceOnly = restTemplate.getForObject("https://api.cryptowat.ch/markets/bitfinex/" + token + "usd/price", CoinPriceOnly.class);
+        CoinPriceResult coinPriceResult = restTemplate.getForObject("https://api.cryptowat.ch/markets/bitfinex/" + token + "usd/summary", CoinPriceResult.class);
         log.info("getPrice(" + token + "): Get the price from API to a RestTemplate and return the value.");
-        return Double.valueOf(priceOnly.getResult().getPrice());
+        return Double.valueOf(coinPriceResult.getResult().getPrice().getLast());
     }
 
     public double getPercentage(String token) {

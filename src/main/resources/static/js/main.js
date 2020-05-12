@@ -3,7 +3,7 @@ const loadModalFields = async function(coinName) {
   let response = await fetch('../coins/info/' + coinName);
 
   let myJson = await response.json();
-  var total = myJson.price * myJson.amount.toFixed(2);
+  var total = (Math.round((myJson.price * myJson.amount) * 100) / 100).toFixed(2);
   var percentage = (myJson.percentage).toFixed(2);
   console.log(myJson.percentage);
   document.getElementById("name").innerHTML = myJson.name;
